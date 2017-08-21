@@ -2,6 +2,15 @@ class AssetsController < ApplicationController
   before_filter :authenticate_user!
   before_action :set_asset, only: [:show, :edit, :update, :destroy]
 
+  def get 
+    asset = current_user.assets.find_by_id(params[:id]) 
+    if asset 
+      send_file asset.uploaded_file.path, :type => asset.uploaded_file_content_type
+    else
+      flash[:error] = "file not found"
+      redirect_to assets_path 
+    end
+  end
   # GET /assets
   # GET /assets.json
   def index
@@ -63,22 +72,6 @@ class AssetsController < ApplicationController
   end
 
   # GET download asset
-  def download
-    asset = current_user.assets.find_by_id(params[:id])
-    if asset
-      # TODO need to handle how user can download files from S3
-      # data = open(asset.uploaded_file.url)
-      if params[:download]
-        send_file asset.uploaded_file.url, filename: asset.uploaded_file_file_name 
-      else
-        redirect_to asset.uploaded_file.url(:medium)
-      end
-    else
-      flash[:error] = 'Sorry Bro! you can\'t access other assets'
-      redirect_to assets_path
-    end
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_asset
