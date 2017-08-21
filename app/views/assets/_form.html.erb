@@ -1,0 +1,19 @@
+<%=  form_for @asset, :html => {:multipart => true} do |f|  %>
+  <% if @asset.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@asset.errors.count, "error") %> prohibited this asset from being saved:</h2>
+
+      <ul>
+      <% @asset.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p> 
+        <%= f.label :uploaded_file, "File" %><br /> 
+        <%= f.file_field :uploaded_file %> 
+      </p> 
+  <p><%= f.submit "Upload" %></p> 
+<% end %>

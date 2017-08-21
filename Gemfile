@@ -7,6 +7,7 @@ end
 
 gem 'devise'
 gem 'haml'
+gem 'paperclip'
 gem 'rails', '~> 5.0.4'
 gem 'sqlite3'
 gem 'puma', '~> 3.0'
