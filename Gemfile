@@ -7,6 +7,7 @@ end
 
 gem 'devise'
 gem 'haml'
+gem 'acts_as_tree'
 gem 'paperclip'
 gem 'rails', '~> 5.0.4'
 gem 'sqlite3'
