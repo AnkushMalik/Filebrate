@@ -15,11 +15,9 @@
     <%= f.label :name %>
     <%= f.text_field :name %>
   </div>
-
-  <!-- <div class="field">
-    <%= f.label :parent_id %>
-    <%= f.number_field :parent_id %>
-  </div> -->
+  <div class="field">
+    <%= f.hidden_field :parent_id,:include_blank=>true %>
+  </div>
 
   <div class="actions">
     <%= f.submit %>

@@ -7,14 +7,17 @@
       %li
         =link_to "Upload", new_asset_path
       %li
-        =link_to "New Folder", new_folder_path
+        - if @current_folder
+          %li= link_to "New Folder", new_sub_folder_path(@current_folder)
+        - else
+          %li= link_to "New Folder", new_folder_path
   .asset_list_header
     .file_name_header File Name
     .file_size_header Size
     .file_last_updated_header Modified
   - @folders.each do |folder|
     .asset_details.folder
-      .file_name= link_to folder.name, folder_path(folder)
+      .file_name= link_to folder.name, browse_path(folder)
       .file_size -
       .file_last_updated 
 

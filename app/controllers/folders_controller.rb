@@ -18,6 +18,10 @@ class FoldersController < ApplicationController
   # GET /folders/new
   def new
     @folder = current_user.folders.new
+    if params[:folder_id] #if we want to create a folder inside another folder
+      @current_folder = current_user.folders.find(params[:folder_id])
+      @folder.parent_id = @current_folder.id
+    end
   end
 
   # GET /folders/1/edit
@@ -28,16 +32,37 @@ class FoldersController < ApplicationController
   # POST /folders.json
   def create
     @folder = current_user.folders.new(folder_params)
+    if @folder.save
+      flash[:notice] = "Successfully created folder."
 
-    respond_to do |format|
-      if @folder.save
-        format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
-        format.json { render :show, status: :created, location: @folder }
+      if @folder.parent #checking if we have a parent folder on this one
+        redirect_to browse_path(@folder.parent)  #then we redirect to the parent folder
       else
-        format.html { render :new }
-        format.json { render json: @folder.errors, status: :unprocessable_entity }
+        @folder
+        redirect_to root_url #if not, redirect back to home page
       end
+    elsif @folder.parent.nil?
+      root=@folder
+      render :action => 'new'
+    else
+      render :action => 'new'
     end
+
+
+    # respond_to do |format|
+    #   if @folder.save
+    #     format.html { redirect_to @folder, notice: 'Folder was successfully created.' }
+    #     format.json { render :show, status: :created, location: @folder }
+    #     if @folder.parent #checking if we have a parent folder on this one
+    #       redirect_to browse_path(@folder.parent)  #then we redirect to the parent folder
+    #     else
+    #       redirect_to root_url #if not, redirect back to home page
+    #     end
+    #   else
+    #     format.html { render :new }
+    #     format.json { render json: @folder.errors, status: :unprocessable_entity }
+    #   end
+    # end
   end
 
   # PATCH/PUT /folders/1
@@ -73,6 +98,6 @@ class FoldersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def folder_params
-      params.require(:folder).permit(:name,:user_id)
+      params.require(:folder).permit(:name,:parent_id,:user_id)
     end
 end

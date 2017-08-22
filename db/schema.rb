@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170821135908) do
+ActiveRecord::Schema.define(version: 20170821175653) do
 
   create_table "assets", force: :cascade do |t|
     t.integer  "user_id"
@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20170821135908) do
     t.string   "uploaded_file_content_type"
     t.integer  "uploaded_file_file_size"
     t.datetime "uploaded_file_updated_at"
+    t.integer  "folder_id"
+    t.index ["folder_id"], name: "index_assets_on_folder_id"
     t.index ["user_id"], name: "index_assets_on_user_id"
   end
 
