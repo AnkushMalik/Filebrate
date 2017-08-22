@@ -3,6 +3,7 @@
   %p File sharing web application you can't ignore.
 - else
   #menu
+    = render :partial => "breadcrumbs"
     %ul#top_menu
       %li
         =link_to "Upload", new_asset_path
@@ -19,7 +20,7 @@
     .asset_details.folder
       .file_name= link_to folder.name, browse_path(folder)
       .file_size -
-      .file_last_updated 
+      .file_last_updated
 
   .asset_list
     - @assets.each do |asset|
