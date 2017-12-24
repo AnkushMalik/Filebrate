@@ -1,5 +1,5 @@
 # Filebrate
-A cloud storage appwith decent ui (incomplete right now)
+A cloud storage app with decent ui (incomplete right now)
 
 # README
 
