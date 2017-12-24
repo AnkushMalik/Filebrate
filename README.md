@@ -1,3 +1,6 @@
+# Filebrate
+A cloud storage appwith decent ui (incomplete right now)
+
 # README
 
 This README would normally document whatever steps are necessary to get the
